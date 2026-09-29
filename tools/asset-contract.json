@@ -1,0 +1,1040 @@
+{
+  "version": 1,
+  "note": "Single source of truth for the Blender -> game asset interface. Read by tools/validate-assets.mjs and by src/assets/contract.ts. Axes are GLTF/three.js axes (Y up, model forward = -Z, right = +X). Sizes are metres.",
+  "assets": {
+    "player": {
+      "file": "player.glb",
+      "requiredNodes": [
+        "PlayerRoot",
+        "Pelvis",
+        "Helmet",
+        "Torso",
+        "Arm_L",
+        "Arm_R",
+        "Forearm_L",
+        "Forearm_R",
+        "Hand_L",
+        "Hand_R",
+        "Leg_L",
+        "Leg_R",
+        "Shin_L",
+        "Shin_R",
+        "Boot_L",
+        "Boot_R",
+        "ChestReactor",
+        "PalmReactor_L",
+        "PalmReactor_R",
+        "FootThruster_L",
+        "FootThruster_R",
+        "Muzzle_L",
+        "Muzzle_R",
+        "Launcher_Missile_L",
+        "Launcher_Missile_R",
+        "Launcher_Mini_L_1",
+        "Launcher_Mini_L_2",
+        "Launcher_Mini_L_3",
+        "Launcher_Mini_R_1",
+        "Launcher_Mini_R_2",
+        "Launcher_Mini_R_3",
+        "Nozzle_FootL",
+        "Nozzle_FootR"
+      ],
+      "meshNodes": [
+        "Helmet",
+        "Torso",
+        "Arm_L",
+        "Arm_R",
+        "Forearm_L",
+        "Forearm_R",
+        "Hand_L",
+        "Hand_R",
+        "Leg_L",
+        "Leg_R",
+        "Shin_L",
+        "Shin_R",
+        "Boot_L",
+        "Boot_R",
+        "ChestReactor",
+        "PalmReactor_L",
+        "PalmReactor_R",
+        "FootThruster_L",
+        "FootThruster_R"
+      ],
+      "hierarchy": [
+        [
+          "PlayerRoot",
+          "Pelvis"
+        ],
+        [
+          "Pelvis",
+          "Torso"
+        ],
+        [
+          "Torso",
+          "Helmet"
+        ],
+        [
+          "Torso",
+          "ChestReactor"
+        ],
+        [
+          "Torso",
+          "Arm_L"
+        ],
+        [
+          "Torso",
+          "Arm_R"
+        ],
+        [
+          "Arm_L",
+          "Forearm_L"
+        ],
+        [
+          "Arm_R",
+          "Forearm_R"
+        ],
+        [
+          "Forearm_L",
+          "Hand_L"
+        ],
+        [
+          "Forearm_R",
+          "Hand_R"
+        ],
+        [
+          "Hand_L",
+          "PalmReactor_L"
+        ],
+        [
+          "Hand_R",
+          "PalmReactor_R"
+        ],
+        [
+          "Hand_L",
+          "Muzzle_L"
+        ],
+        [
+          "Hand_R",
+          "Muzzle_R"
+        ],
+        [
+          "Pelvis",
+          "Leg_L"
+        ],
+        [
+          "Pelvis",
+          "Leg_R"
+        ],
+        [
+          "Leg_L",
+          "Shin_L"
+        ],
+        [
+          "Leg_R",
+          "Shin_R"
+        ],
+        [
+          "Shin_L",
+          "Boot_L"
+        ],
+        [
+          "Shin_R",
+          "Boot_R"
+        ],
+        [
+          "Boot_L",
+          "FootThruster_L"
+        ],
+        [
+          "Boot_R",
+          "FootThruster_R"
+        ],
+        [
+          "Boot_L",
+          "Nozzle_FootL"
+        ],
+        [
+          "Boot_R",
+          "Nozzle_FootR"
+        ],
+        [
+          "Torso",
+          "Launcher_Missile_L"
+        ],
+        [
+          "Torso",
+          "Launcher_Missile_R"
+        ]
+      ],
+      "animations": [
+        "Pose_Standing",
+        "Pose_Flight",
+        "Pose_Hover"
+      ],
+      "triangles": [
+        12000,
+        70000
+      ],
+      "emissiveMaterials": 2,
+      "bounds": {
+        "node": "PlayerRoot",
+        "size": {
+          "x": [
+            0.55,
+            1.6
+          ],
+          "y": [
+            1.75,
+            2.3
+          ],
+          "z": [
+            0.25,
+            0.95
+          ]
+        }
+      },
+      "sides": {
+        "Arm_L": -1,
+        "Arm_R": 1,
+        "Hand_L": -1,
+        "Hand_R": 1,
+        "Leg_L": -1,
+        "Leg_R": 1,
+        "Boot_L": -1,
+        "Boot_R": 1,
+        "Muzzle_L": -1,
+        "Muzzle_R": 1
+      }
+    },
+    "drone": {
+      "file": "drone.glb",
+      "requiredNodes": [
+        "Drone",
+        "Drone_Body",
+        "Drone_Rotor_FL",
+        "Drone_Rotor_FR",
+        "Drone_Rotor_RL",
+        "Drone_Rotor_RR",
+        "Drone_Sensor",
+        "Muzzle_L",
+        "Muzzle_R",
+        "Drone_Engine",
+        "Nozzle_Rear"
+      ],
+      "meshNodes": [
+        "Drone_Body",
+        "Drone_Rotor_FL",
+        "Drone_Rotor_FR",
+        "Drone_Rotor_RL",
+        "Drone_Rotor_RR",
+        "Drone_Sensor",
+        "Drone_Engine"
+      ],
+      "triangles": [
+        2500,
+        20000
+      ],
+      "emissiveMaterials": 1,
+      "bounds": {
+        "node": "Drone",
+        "size": {
+          "x": [
+            0.9,
+            2.4
+          ],
+          "y": [
+            0.25,
+            1.0
+          ],
+          "z": [
+            0.8,
+            2.2
+          ]
+        }
+      },
+      "sides": {
+        "Muzzle_L": -1,
+        "Muzzle_R": 1
+      }
+    },
+    "turret": {
+      "file": "turret.glb",
+      "requiredNodes": [
+        "Turret",
+        "Turret_Base",
+        "Turret_Yaw",
+        "Turret_Pitch",
+        "Turret_Sensor",
+        "Muzzle_1",
+        "Muzzle_2",
+        "Muzzle_3",
+        "Muzzle_4"
+      ],
+      "meshNodes": [
+        "Turret_Base",
+        "Turret_Yaw",
+        "Turret_Pitch",
+        "Turret_Sensor"
+      ],
+      "hierarchy": [
+        [
+          "Turret",
+          "Turret_Base"
+        ],
+        [
+          "Turret",
+          "Turret_Yaw"
+        ],
+        [
+          "Turret_Yaw",
+          "Turret_Pitch"
+        ],
+        [
+          "Turret_Pitch",
+          "Turret_Sensor"
+        ],
+        [
+          "Turret_Pitch",
+          "Muzzle_1"
+        ],
+        [
+          "Turret_Pitch",
+          "Muzzle_4"
+        ]
+      ],
+      "triangles": [
+        4000,
+        30000
+      ],
+      "emissiveMaterials": 1,
+      "bounds": {
+        "node": "Turret",
+        "size": {
+          "x": [
+            1.6,
+            4.2
+          ],
+          "y": [
+            1.8,
+            4.2
+          ],
+          "z": [
+            1.6,
+            4.2
+          ]
+        }
+      }
+    },
+    "boss": {
+      "file": "boss.glb",
+      "requiredNodes": [
+        "Boss",
+        "Boss_Torso",
+        "Boss_Head",
+        "Boss_Arm_L",
+        "Boss_Arm_R",
+        "Boss_Forearm_L",
+        "Boss_Forearm_R",
+        "Boss_Core",
+        "Boss_Thruster_1",
+        "Boss_Thruster_2",
+        "Boss_Thruster_3",
+        "Boss_Thruster_4",
+        "Nozzle_1",
+        "Nozzle_2",
+        "Nozzle_3",
+        "Nozzle_4",
+        "Hardpoint_L1",
+        "Hardpoint_L2",
+        "Hardpoint_L3",
+        "Hardpoint_R1",
+        "Hardpoint_R2",
+        "Hardpoint_R3",
+        "Shield_Center"
+      ],
+      "meshNodes": [
+        "Boss_Torso",
+        "Boss_Head",
+        "Boss_Arm_L",
+        "Boss_Arm_R",
+        "Boss_Forearm_L",
+        "Boss_Forearm_R",
+        "Boss_Core",
+        "Boss_Thruster_1",
+        "Boss_Thruster_2",
+        "Boss_Thruster_3",
+        "Boss_Thruster_4"
+      ],
+      "hierarchy": [
+        [
+          "Boss",
+          "Boss_Torso"
+        ],
+        [
+          "Boss_Torso",
+          "Boss_Arm_L"
+        ],
+        [
+          "Boss_Arm_L",
+          "Boss_Forearm_L"
+        ],
+        [
+          "Boss_Torso",
+          "Boss_Arm_R"
+        ],
+        [
+          "Boss_Arm_R",
+          "Boss_Forearm_R"
+        ],
+        [
+          "Boss_Torso",
+          "Boss_Head"
+        ],
+        [
+          "Boss_Torso",
+          "Boss_Core"
+        ]
+      ],
+      "triangles": [
+        25000,
+        120000
+      ],
+      "emissiveMaterials": 2,
+      "bounds": {
+        "node": "Boss",
+        "size": {
+          "x": [
+            5.0,
+            11.0
+          ],
+          "y": [
+            5.4,
+            7.6
+          ],
+          "z": [
+            3.0,
+            7.5
+          ]
+        }
+      },
+      "sides": {
+        "Boss_Arm_L": -1,
+        "Boss_Arm_R": 1,
+        "Hardpoint_L1": -1,
+        "Hardpoint_R1": 1
+      }
+    },
+    "boss_shield": {
+      "file": "boss_shield.glb",
+      "requiredNodes": [
+        "BossShield"
+      ],
+      "meshNodes": [
+        "BossShield"
+      ],
+      "triangles": [
+        1000,
+        12000
+      ],
+      "bounds": {
+        "node": "BossShield",
+        "size": {
+          "x": [
+            1.95,
+            2.05
+          ],
+          "y": [
+            1.95,
+            2.05
+          ],
+          "z": [
+            1.95,
+            2.05
+          ]
+        }
+      }
+    },
+    "missile": {
+      "file": "missile.glb",
+      "requiredNodes": [
+        "Missile",
+        "Missile_Body",
+        "Missile_Fins",
+        "Missile_Engine",
+        "Missile_Exhaust",
+        "Exhaust_Point"
+      ],
+      "meshNodes": [
+        "Missile_Body",
+        "Missile_Fins",
+        "Missile_Engine",
+        "Missile_Exhaust"
+      ],
+      "triangles": [
+        500,
+        6000
+      ],
+      "emissiveMaterials": 1,
+      "bounds": {
+        "node": "Missile",
+        "size": {
+          "x": [
+            0.15,
+            0.7
+          ],
+          "y": [
+            0.15,
+            0.7
+          ],
+          "z": [
+            1.3,
+            2.1
+          ]
+        }
+      }
+    },
+    "mini_missile": {
+      "file": "mini_missile.glb",
+      "requiredNodes": [
+        "MiniMissile",
+        "Mini_Body",
+        "Mini_Fins",
+        "Mini_Engine",
+        "Mini_Exhaust",
+        "Exhaust_Point"
+      ],
+      "meshNodes": [
+        "Mini_Body",
+        "Mini_Fins",
+        "Mini_Engine",
+        "Mini_Exhaust"
+      ],
+      "triangles": [
+        250,
+        3000
+      ],
+      "emissiveMaterials": 1,
+      "bounds": {
+        "node": "MiniMissile",
+        "size": {
+          "x": [
+            0.08,
+            0.4
+          ],
+          "y": [
+            0.08,
+            0.4
+          ],
+          "z": [
+            0.55,
+            0.95
+          ]
+        }
+      }
+    },
+    "city_buildings": {
+      "file": "city_buildings.glb",
+      "groups": [
+        {
+          "prefix": "Bld_",
+          "excludeSuffix": "_LOD1",
+          "min": 10,
+          "each": {
+            "descendantPrefixes": {
+              "COL_": 1,
+              "Roof_Slot_": 1
+            },
+            "needsSibling": "{name}_LOD1",
+            "triangles": [
+              600,
+              28000
+            ],
+            "size": {
+              "x": [
+                12,
+                68
+              ],
+              "y": [
+                12,
+                175
+              ],
+              "z": [
+                12,
+                68
+              ]
+            }
+          }
+        },
+        {
+          "prefix": "Bld_",
+          "suffix": "_LOD1",
+          "min": 10,
+          "each": {
+            "triangles": [
+              12,
+              1500
+            ]
+          }
+        }
+      ],
+      "triangles": [
+        15000,
+        320000
+      ],
+      "minImages": 3
+    },
+    "city_ground": {
+      "file": "city_ground.glb",
+      "requiredNodes": [
+        "Road_Straight",
+        "Road_Intersection",
+        "Sidewalk_Straight",
+        "Sidewalk_Corner",
+        "Lot_Ground"
+      ],
+      "meshNodes": [
+        "Road_Straight",
+        "Road_Intersection",
+        "Sidewalk_Straight",
+        "Sidewalk_Corner",
+        "Lot_Ground"
+      ],
+      "nodeBounds": {
+        "Road_Straight": {
+          "x": [
+            19.9,
+            20.1
+          ],
+          "z": [
+            79.9,
+            80.1
+          ],
+          "y": [
+            0.0,
+            0.3
+          ]
+        },
+        "Road_Intersection": {
+          "x": [
+            19.9,
+            20.1
+          ],
+          "z": [
+            19.9,
+            20.1
+          ],
+          "y": [
+            0.0,
+            0.3
+          ]
+        },
+        "Sidewalk_Straight": {
+          "x": [
+            3.9,
+            4.1
+          ],
+          "z": [
+            71.9,
+            72.1
+          ],
+          "y": [
+            0.05,
+            0.5
+          ]
+        },
+        "Sidewalk_Corner": {
+          "x": [
+            3.9,
+            4.1
+          ],
+          "z": [
+            3.9,
+            4.1
+          ],
+          "y": [
+            0.05,
+            0.5
+          ]
+        },
+        "Lot_Ground": {
+          "x": [
+            71.9,
+            72.1
+          ],
+          "z": [
+            71.9,
+            72.1
+          ],
+          "y": [
+            0.0,
+            0.5
+          ]
+        }
+      },
+      "triangles": [
+        100,
+        40000
+      ],
+      "minImages": 2
+    },
+    "city_props": {
+      "file": "city_props.glb",
+      "requiredNodes": [
+        "Prop_StreetLamp",
+        "Prop_Car_A",
+        "Prop_Car_B",
+        "Prop_Car_C",
+        "Prop_Barrier_Jersey",
+        "Prop_Barrier_Striped",
+        "Prop_Antenna",
+        "Prop_AC_Unit_A",
+        "Prop_AC_Unit_B",
+        "Prop_Vent_Stack",
+        "Prop_Roof_Access",
+        "Prop_Cooling_Tower",
+        "Prop_Solar_Array"
+      ],
+      "nodeBounds": {
+        "Prop_StreetLamp": {
+          "y": [
+            7.0,
+            11.0
+          ]
+        },
+        "Prop_Car_A": {
+          "x": [
+            1.6,
+            2.2
+          ],
+          "z": [
+            3.9,
+            5.2
+          ],
+          "y": [
+            1.1,
+            1.9
+          ]
+        },
+        "Prop_Car_B": {
+          "x": [
+            1.6,
+            2.4
+          ],
+          "z": [
+            3.9,
+            5.6
+          ],
+          "y": [
+            1.1,
+            2.4
+          ]
+        },
+        "Prop_Car_C": {
+          "x": [
+            1.6,
+            2.4
+          ],
+          "z": [
+            3.9,
+            5.6
+          ],
+          "y": [
+            1.1,
+            2.4
+          ]
+        },
+        "Prop_Barrier_Jersey": {
+          "z": [
+            2.5,
+            4.0
+          ],
+          "y": [
+            0.7,
+            1.1
+          ]
+        },
+        "Prop_Antenna": {
+          "y": [
+            8.0,
+            22.0
+          ]
+        }
+      },
+      "triangles": [
+        4000,
+        90000
+      ]
+    },
+    "destructible_column_intact": {
+      "file": "destructible_column_intact.glb",
+      "requiredNodes": [
+        "Column_Intact"
+      ],
+      "descendantPrefixes": {
+        "COL_": 1
+      },
+      "triangles": [
+        300,
+        12000
+      ],
+      "bounds": {
+        "node": "Column_Intact",
+        "size": {
+          "y": [
+            8.0,
+            16.0
+          ],
+          "x": [
+            1.0,
+            3.0
+          ],
+          "z": [
+            1.0,
+            3.0
+          ]
+        }
+      }
+    },
+    "destructible_column_fractured": {
+      "file": "destructible_column_fractured.glb",
+      "requiredNodes": [
+        "Column_Fractured"
+      ],
+      "chunks": {
+        "root": "Column_Fractured",
+        "min": 10,
+        "max": 48
+      },
+      "triangles": [
+        600,
+        30000
+      ],
+      "sameSizeAs": [
+        "destructible_column_intact",
+        "Column_Intact",
+        "Column_Fractured"
+      ]
+    },
+    "destructible_citysign_intact": {
+      "file": "destructible_citysign_intact.glb",
+      "requiredNodes": [
+        "CitySign_Intact"
+      ],
+      "descendantPrefixes": {
+        "COL_": 1
+      },
+      "triangles": [
+        300,
+        12000
+      ],
+      "emissiveMaterials": 1,
+      "bounds": {
+        "node": "CitySign_Intact",
+        "size": {
+          "y": [
+            7.0,
+            14.0
+          ]
+        }
+      }
+    },
+    "destructible_citysign_fractured": {
+      "file": "destructible_citysign_fractured.glb",
+      "requiredNodes": [
+        "CitySign_Fractured"
+      ],
+      "chunks": {
+        "root": "CitySign_Fractured",
+        "min": 10,
+        "max": 48
+      },
+      "triangles": [
+        600,
+        30000
+      ],
+      "sameSizeAs": [
+        "destructible_citysign_intact",
+        "CitySign_Intact",
+        "CitySign_Fractured"
+      ]
+    },
+    "destructible_watertower_intact": {
+      "file": "destructible_watertower_intact.glb",
+      "requiredNodes": [
+        "WaterTower_Intact"
+      ],
+      "descendantPrefixes": {
+        "COL_": 1
+      },
+      "triangles": [
+        300,
+        12000
+      ],
+      "bounds": {
+        "node": "WaterTower_Intact",
+        "size": {
+          "y": [
+            7.0,
+            12.0
+          ],
+          "x": [
+            3.0,
+            8.0
+          ],
+          "z": [
+            3.0,
+            8.0
+          ]
+        }
+      }
+    },
+    "destructible_watertower_fractured": {
+      "file": "destructible_watertower_fractured.glb",
+      "requiredNodes": [
+        "WaterTower_Fractured"
+      ],
+      "chunks": {
+        "root": "WaterTower_Fractured",
+        "min": 10,
+        "max": 48
+      },
+      "triangles": [
+        600,
+        30000
+      ],
+      "sameSizeAs": [
+        "destructible_watertower_intact",
+        "WaterTower_Intact",
+        "WaterTower_Fractured"
+      ]
+    },
+    "destructible_smallbuilding_intact": {
+      "file": "destructible_smallbuilding_intact.glb",
+      "requiredNodes": [
+        "SmallBuilding_Intact"
+      ],
+      "descendantPrefixes": {
+        "COL_": 1
+      },
+      "triangles": [
+        400,
+        14000
+      ],
+      "bounds": {
+        "node": "SmallBuilding_Intact",
+        "size": {
+          "y": [
+            4.5,
+            9.0
+          ],
+          "x": [
+            6.0,
+            16.0
+          ],
+          "z": [
+            6.0,
+            16.0
+          ]
+        }
+      }
+    },
+    "destructible_smallbuilding_fractured": {
+      "file": "destructible_smallbuilding_fractured.glb",
+      "requiredNodes": [
+        "SmallBuilding_Fractured"
+      ],
+      "chunks": {
+        "root": "SmallBuilding_Fractured",
+        "min": 12,
+        "max": 64
+      },
+      "triangles": [
+        800,
+        36000
+      ],
+      "sameSizeAs": [
+        "destructible_smallbuilding_intact",
+        "SmallBuilding_Intact",
+        "SmallBuilding_Fractured"
+      ]
+    },
+    "pickups": {
+      "file": "pickups.glb",
+      "requiredNodes": [
+        "Pickup_Armor",
+        "Pickup_Energy",
+        "Pickup_Missiles",
+        "Pickup_Mini"
+      ],
+      "meshNodes": [
+        "Pickup_Armor",
+        "Pickup_Energy",
+        "Pickup_Missiles",
+        "Pickup_Mini"
+      ],
+      "triangles": [
+        400,
+        30000
+      ],
+      "emissiveMaterials": 2,
+      "nodeBounds": {
+        "Pickup_Armor": {
+          "x": [
+            0.4,
+            1.3
+          ],
+          "y": [
+            0.4,
+            1.3
+          ],
+          "z": [
+            0.4,
+            1.3
+          ]
+        },
+        "Pickup_Energy": {
+          "x": [
+            0.3,
+            1.3
+          ],
+          "y": [
+            0.4,
+            1.5
+          ],
+          "z": [
+            0.3,
+            1.3
+          ]
+        },
+        "Pickup_Missiles": {
+          "x": [
+            0.4,
+            1.4
+          ],
+          "y": [
+            0.3,
+            1.3
+          ],
+          "z": [
+            0.4,
+            1.6
+          ]
+        },
+        "Pickup_Mini": {
+          "x": [
+            0.4,
+            1.4
+          ],
+          "y": [
+            0.3,
+            1.3
+          ],
+          "z": [
+            0.4,
+            1.6
+          ]
+        }
+      }
+    }
+  }
+}

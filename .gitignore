@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+# project-local portable Blender (see tools/run-blender.mjs)
+tools/.blender/
+tools/.cache/
+__pycache__/
+*.blend1

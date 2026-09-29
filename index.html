@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#050b14" />
+    <title>Armored Flight</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23050b14'/%3E%3Cpath d='M32 8 52 24 46 50 32 42 18 50 12 24Z' fill='none' stroke='%234de3ff' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='27' r='5' fill='%234de3ff'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game" tabindex="0"></canvas>
+
+      <!-- =============================== HUD =============================== -->
+      <div id="hud" class="hidden">
+        <div id="dmg-vignette"></div>
+        <div id="lowhp-vignette"></div>
+        <div id="scanlines"></div>
+
+        <!-- radar (top left) -->
+        <div class="hud-block radar-block">
+          <div class="frame radar-frame">
+            <canvas id="radar" width="260" height="260"></canvas>
+            <div class="radar-caption"><span id="radar-hdg">000</span>&deg; <em>HDG</em></div>
+          </div>
+        </div>
+
+        <!-- wave / score (top center) -->
+        <div class="hud-block top-center">
+          <div class="wave-plate">
+            <span class="wave-bar l"></span>
+            <div class="wave-label">WAVE <b id="wave-num">1</b></div>
+            <span class="wave-bar r"></span>
+          </div>
+          <div class="score-line">SCORE <b id="score">0</b></div>
+          <div id="wave-sub" class="wave-sub"></div>
+        </div>
+
+        <!-- boss (top right) -->
+        <div id="boss-block" class="hud-block boss-block hidden">
+          <div class="boss-head">
+            <div class="boss-name" id="boss-name">ARMORED BEHEMOTH</div>
+            <div class="boss-status" id="boss-status"></div>
+          </div>
+          <div class="boss-bars">
+            <div class="bar-line"><span>SHIELD</span><div class="bar shield"><i id="boss-shield"></i></div></div>
+            <div class="bar-line"><span>HULL</span><div class="bar hull"><i id="boss-hull"></i></div></div>
+          </div>
+          <svg class="boss-icon" viewBox="0 0 48 48"><path d="M24 3 42 12v14L34 44H14L6 26V12Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M15 20h18M18 28h12" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="4" fill="currentColor"/></svg>
+        </div>
+
+        <!-- speed / altitude (left) -->
+        <div class="hud-block left-tape">
+          <div class="tape-gauge"><i id="speed-fill"></i><i id="boost-fill"></i></div>
+          <div class="tape-data">
+            <div class="readout"><span class="lbl">SPEED</span><span class="val" id="speed">0</span><span class="unit">km/h</span></div>
+            <div class="readout"><span class="lbl">ALTITUDE</span><span class="val" id="alt">0</span><span class="unit">m</span></div>
+            <div class="mode-line"><span id="mode-label">LANDED</span><span id="boost-label" class="boost-tag">BOOST</span></div>
+          </div>
+        </div>
+
+        <!-- armor / energy (right) -->
+        <div class="hud-block right-stats">
+          <div class="stat">
+            <div class="stat-head"><span class="lbl">ARMOR</span><span class="val" id="armor-val">100%</span></div>
+            <div class="seg-bar armor"><i id="armor-fill"></i></div>
+          </div>
+          <div class="stat">
+            <div class="stat-head"><span class="lbl">ENERGY</span><span class="val" id="energy-val">100%</span></div>
+            <div class="seg-bar energy"><i id="energy-fill"></i></div>
+          </div>
+        </div>
+
+        <!-- weapons (bottom) -->
+        <div class="hud-block weapons">
+          <div class="wpn frame" id="wpn-repulsor">
+            <svg class="wpn-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="3" fill="currentColor"/></svg>
+            <div class="wpn-body"><div class="lbl">REPULSOR <em id="fire-mode">ALT</em></div><div class="wpn-count inf">&infin;</div><div class="wpn-bar"><i id="rep-bar"></i></div></div>
+          </div>
+          <div class="wpn frame" id="wpn-missile">
+            <svg class="wpn-icon" viewBox="0 0 48 48"><path d="M36 6c-8 2-16 10-19 20l5 5c10-3 18-11 20-19ZM17 26l-7 3 3 3M22 31l-3 7-3-3M12 36l-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            <div class="wpn-body"><div class="lbl">MISSILES <em>[1]</em></div><div class="wpn-count"><b id="missile-count">8</b><small>/ <span id="missile-max">8</span></small></div><div class="wpn-bar"><i id="missile-bar"></i></div></div>
+          </div>
+          <div class="wpn frame" id="wpn-mini">
+            <svg class="wpn-icon" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 8l3 6v14h-6V14ZM24 8l3 6v14h-6V14ZM36 8l3 6v14h-6V14Z"/><path d="M9 34l3 6 3-6M21 34l3 6 3-6M33 34l3 6 3-6"/></g></svg>
+            <div class="wpn-body"><div class="lbl">MINI-MISSILES <em>[2]</em></div><div class="wpn-count"><b id="mini-count">24</b><small>/ <span id="mini-max">24</span></small></div><div class="wpn-bar"><i id="mini-bar"></i></div></div>
+          </div>
+        </div>
+
+        <!-- suit status (bottom right) -->
+        <div class="hud-block suit-block frame">
+          <svg id="suit" viewBox="0 0 80 150" class="suit-svg">
+            <g id="suit-parts" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+              <path id="s-head" d="M40 6l9 6v10l-9 7-9-7V12Z"/>
+              <path id="s-chest" d="M22 34h36l6 8-4 30H20l-4-30Z"/>
+              <path id="s-arm-l" d="M14 38l-9 6 2 34 9-1 3-28Z"/>
+              <path id="s-arm-r" d="M66 38l9 6-2 34-9-1-3-28Z"/>
+              <path id="s-leg-l" d="M22 76h16l-2 40 3 28H24l-4-28Z"/>
+              <path id="s-leg-r" d="M42 76h16l2 40-4 28H43l3-28Z"/>
+            </g>
+            <circle id="s-core" cx="40" cy="52" r="5" fill="currentColor"/>
+          </svg>
+          <div class="suit-lbl">SUIT INTEGRITY</div>
+        </div>
+
+        <!-- reticle + lock text -->
+        <div id="reticle" class="reticle">
+          <div class="ret-ring"></div><div class="ret-dot"></div>
+          <i class="t1"></i><i class="t2"></i><i class="t3"></i><i class="t4"></i>
+          <div id="lock-text" class="lock-text"></div>
+          <div id="hitmarker" class="hitmarker"><i></i><i></i><i></i><i></i></div>
+        </div>
+
+        <!-- target markers / off-screen arrows -->
+        <div id="markers"></div>
+        <div id="arrows"></div>
+
+        <!-- alerts + messages -->
+        <div id="alerts"></div>
+        <div id="messages"></div>
+      </div>
+
+      <!-- ============================ overlays ============================ -->
+      <div id="loading" class="overlay">
+        <div class="ov-panel">
+          <div class="title-mark">ARMORED <span>FLIGHT</span></div>
+          <div class="load-bar"><i id="load-fill"></i></div>
+          <div id="load-text" class="load-text">INITIALISING SYSTEMS</div>
+          <div id="load-error" class="load-error hidden"></div>
+        </div>
+      </div>
+
+      <div id="menu" class="overlay hidden">
+        <div class="ov-panel wide">
+          <div class="title-mark big">ARMORED <span>FLIGHT</span></div>
+          <div class="subtitle">POWERED ARMOUR &middot; AERIAL COMBAT &middot; DESTRUCTIBLE CITY</div>
+          <p class="brief">Hostile drones, rooftop missile turrets and an armoured behemoth are tearing the city apart. Launch from the rooftop, hold the skyline and bring the shield down.</p>
+          <button id="btn-start" class="btn primary">LAUNCH</button>
+          <div class="hint">Click LAUNCH to capture the mouse &middot; <b>Esc</b> pauses &middot; <b>H</b> shows the controls</div>
+          <div class="settings">
+            <label>QUALITY
+              <select id="set-quality"><option value="low">LOW</option><option value="medium">MEDIUM</option><option value="high" selected>HIGH</option></select>
+            </label>
+            <label>DIFFICULTY
+              <select id="set-diff"><option value="easy">EASY</option><option value="normal" selected>NORMAL</option><option value="hard">HARD</option></select>
+            </label>
+            <label>MOUSE SENSITIVITY <input id="set-sens" type="range" min="0.3" max="2.5" step="0.05" value="1" /></label>
+            <label>VOLUME <input id="set-vol" type="range" min="0" max="1" step="0.05" value="0.7" /></label>
+            <label class="chk"><input id="set-invert" type="checkbox" /> INVERT Y</label>
+          </div>
+          <div class="ctrl-mini">W/S thrust &middot; A/D strafe &middot; Space/C up-down &middot; Mouse aim &middot; Q/E roll &middot; Shift boost &middot; F hover &middot; LMB repulsor &middot; RMB lock &middot; 1 missile &middot; 2 mini-missiles &middot; Tab next target</div>
+        </div>
+      </div>
+
+      <div id="pause" class="overlay hidden">
+        <div class="ov-panel">
+          <div class="title-mark">PAUSED</div>
+          <button id="btn-resume" class="btn primary">RESUME</button>
+          <button id="btn-help" class="btn">CONTROLS</button>
+          <button id="btn-restart" class="btn danger">RESTART MISSION</button>
+          <div class="settings compact">
+            <label>QUALITY <select id="set-quality2"><option value="low">LOW</option><option value="medium">MEDIUM</option><option value="high">HIGH</option></select></label>
+            <label>DIFFICULTY <select id="set-diff2"><option value="easy">EASY</option><option value="normal">NORMAL</option><option value="hard">HARD</option></select></label>
+            <label>MOUSE SENSITIVITY <input id="set-sens2" type="range" min="0.3" max="2.5" step="0.05" value="1" /></label>
+            <label>VOLUME <input id="set-vol2" type="range" min="0" max="1" step="0.05" value="0.7" /></label>
+            <label class="chk"><input id="set-invert2" type="checkbox" /> INVERT Y</label>
+          </div>
+        </div>
+      </div>
+
+      <div id="help" class="overlay hidden">
+        <div class="ov-panel wide">
+          <div class="title-mark">CONTROLS</div>
+          <div class="ctrl-grid">
+            <div><kbd>W</kbd><kbd>S</kbd><span>Thrust forward / back</span></div>
+            <div><kbd>A</kbd><kbd>D</kbd><span>Strafe left / right</span></div>
+            <div><kbd>Space</kbd><kbd>C</kbd><span>Vertical thrust up / down</span></div>
+            <div><kbd>Mouse</kbd><span>Aim (yaw / pitch)</span></div>
+            <div><kbd>Q</kbd><kbd>E</kbd><span>Roll left / right</span></div>
+            <div><kbd>Shift</kbd><span>Boost (uses energy)</span></div>
+            <div><kbd>F</kbd><span>Toggle hover / flight mode</span></div>
+            <div><kbd>LMB</kbd><span>Repulsor beam (palm reactors)</span></div>
+            <div><kbd>RMB</kbd><span>Target lock on / off</span></div>
+            <div><kbd>1</kbd><span>Fire homing missile (needs LOCK)</span></div>
+            <div><kbd>2</kbd><span>Mini-missile salvo</span></div>
+            <div><kbd>Tab</kbd><span>Switch target</span></div>
+            <div><kbd>X</kbd><span>Repulsors: alternate / dual fire</span></div>
+            <div><kbd>H</kbd><span>This help &middot; <kbd>M</kbd> mute</span></div>
+            <div><kbd>Esc</kbd><span>Pause</span></div>
+          </div>
+          <div class="hint">Land on rooftops by hovering low and holding <b>C</b>. Enemy missiles can be outmanoeuvred around buildings &mdash; or shot down. Armour self-repairs slowly when you are left alone; supply canisters restore ammo. Shield down &rarr; hit the core.</div>
+          <button id="btn-help-close" class="btn primary">CLOSE</button>
+        </div>
+      </div>
+
+      <div id="gameover" class="overlay hidden">
+        <div class="ov-panel">
+          <div class="title-mark danger">SUIT LOST</div>
+          <div class="result-line">FINAL SCORE <b id="go-score">0</b></div>
+          <div class="result-line small">WAVE <b id="go-wave">1</b> &middot; KILLS <b id="go-kills">0</b></div>
+          <button id="btn-retry-wave" class="btn primary">RETRY WAVE <span id="go-retry-wave">1</span></button>
+          <button id="btn-retry" class="btn">RESTART MISSION</button>
+        </div>
+      </div>
+
+      <div id="victory" class="overlay hidden">
+        <div class="ov-panel">
+          <div class="title-mark good">CITY SECURED</div>
+          <div class="subtitle">THE BEHEMOTH HAS FALLEN</div>
+          <div class="result-line">FINAL SCORE <b id="vic-score">0</b></div>
+          <button id="btn-endless" class="btn primary">CONTINUE (ENDLESS)</button>
+          <button id="btn-again" class="btn">NEW MISSION</button>
+        </div>
+      </div>
+
+      <div id="fps" class="fps hidden"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
